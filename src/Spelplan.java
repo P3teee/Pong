@@ -32,7 +32,6 @@ public class Spelplan extends JPanel implements Runnable {
 
     public Spelplan() throws IOException {
         boll = new Boll();
-        platta = new Platta();
         world = new World();
         JFrame frame = new JFrame("JFrame Example");
         setSize(1044, 596);
@@ -46,11 +45,17 @@ public class Spelplan extends JPanel implements Runnable {
     addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed (KeyEvent e){
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                platta.plattaMove(-10);
+            if (e.getKeyCode() == KeyEvent.VK_W) {
+                boll.platta.plattaMoveYplus();
             }
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                platta.plattaMove(10);
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+                boll.platta.plattaMoveYminus();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_O) {
+                boll.platta.plattaMoveYplus2();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_L) {
+                boll.platta.plattaMoveYminus2();
             }
         }
 @Override
@@ -69,7 +74,11 @@ public class Spelplan extends JPanel implements Runnable {
         while (running) {
             spelRender();
             paintScreen();
-            boll.bollMove(1);
+            boll.bollMovey();
+            boll.bollMovex();
+            boll.overlaps();
+            boll.collision();
+
 
         }
     }
@@ -92,7 +101,7 @@ public class Spelplan extends JPanel implements Runnable {
 
     public void draw(Graphics g) {
         world.draw(g);
-        platta.draw(g);
+        boll.platta.draw(g);
         boll.draw(g);
 
     }
