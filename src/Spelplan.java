@@ -15,6 +15,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *
+ *  Sätter upp variabler som behövs för att skapa våran spelplan.
+ */
+
 public class Spelplan extends JPanel implements Runnable {
 
     static final int GWIDTH = 1024, GHEIGHT = 576;
@@ -23,13 +28,15 @@ public class Spelplan extends JPanel implements Runnable {
     private Thread spel;
     private volatile boolean running = false;
     World world;
-    Platta platta;
     Boll boll;
 
-    /* Image plattaa = ImageIO.read(new File("img/platta.png"));
-    JLabel picLabel = new JLabel(new ImageIcon(plattaa)); */
 
-
+    /**
+     *
+     *  Bygger upp spelplanen
+     *
+     * @throws IOException
+     */
     public Spelplan() throws IOException {
         boll = new Boll();
         world = new World();
@@ -41,7 +48,10 @@ public class Spelplan extends JPanel implements Runnable {
         requestFocus();
 
 
-
+        /**
+         *
+         * Sätter upp kontrollerna för att kunna styra platterna.
+         */
     addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed (KeyEvent e){
@@ -69,7 +79,10 @@ public class Spelplan extends JPanel implements Runnable {
 });
         }
 
-
+    /**
+     *
+     * Här bestämms vad som händer när man kör programmet med hjälp av methoder från andra klasser.
+     */
     public void run() {
         while (running) {
             spelRender();
@@ -77,12 +90,17 @@ public class Spelplan extends JPanel implements Runnable {
             boll.bollMovey();
             boll.bollMovex();
             boll.overlaps();
-            boll.collision();
+
 
 
         }
     }
 
+    /**
+     *
+     * Här rendreras det som ska vara på spelplanen
+     *
+     */
     private void spelRender() {
         if (dbImage == null) {
             dbImage = createImage(GWIDTH, GHEIGHT);
@@ -99,13 +117,21 @@ public class Spelplan extends JPanel implements Runnable {
     }
 
 
+    /**
+     * Här hämtas grafiken för de olika sakerna
+     * @param g
+     */
     public void draw(Graphics g) {
         world.draw(g);
-        boll.platta.draw(g);
-        boll.draw(g);
+        boll.platta.drawPlatta(g);
+        boll.drawBoll(g);
 
     }
 
+    /**
+     *
+     * Här ritar den ut vad som ska visas på skärmen
+     */
     private void paintScreen() {
         Graphics g;
         try {
@@ -119,11 +145,19 @@ public class Spelplan extends JPanel implements Runnable {
         }
     }
 
+    /**
+     *
+     *
+     */
     public void addNotify() {
         super.addNotify();
         startSpel();
     }
 
+    /**
+     *
+     * Vad som händer när spelet startas
+     */
     private void startSpel() {
         if (spel == null || !running) {
             spel = new Thread(this);

@@ -7,6 +7,11 @@ import java.io.IOException;
 public class Spel extends JFrame {
     Spelplan sp;
 
+    /**
+     * Här hämtar den spelplanen från spelplan och ritar upp den
+     * @throws IOException
+     */
+
     public Spel() throws IOException {
         sp = new Spelplan();
         setSize(1040, 615);
@@ -16,6 +21,12 @@ public class Spel extends JFrame {
         add(sp);
     }
 
+
+    /**
+     * Startar spelet
+     * @param args
+     * @throws IOException
+     */
     public static void main (String[] args) throws IOException {
         Spel test = new Spel();
 

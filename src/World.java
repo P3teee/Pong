@@ -4,6 +4,12 @@ import java.awt.*;
 /**
  * Created by bepe14 on 2017-03-03.
  */
+
+/**
+ * Sätter först upp variabler som behövs för att rita upp bakgrunden
+ *
+ */
+
 public class World {
     private Rectangle[] blocks;
     private Image[] blockImg;
@@ -33,6 +39,10 @@ public class World {
             7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5,
     };
 
+    /**
+     *
+     * Bestämmer vad varje tile ska visa för bild
+     */
     public World() {
         Tiles = new Image[9];
         Tiles[0] = new ImageIcon("img/pong_bg.png").getImage();
@@ -50,6 +60,10 @@ public class World {
         loadArrays();
     }
 
+    /**
+     * Här bestämms vart varje tile ska ritas ut
+     */
+
     public void loadArrays() {
         int x = 0;
         int y = 0;
@@ -65,6 +79,10 @@ public class World {
         }
     }
 
+    /**
+     * Ritar ut alla tiles
+     * @param g
+     */
     public void draw(Graphics g){
         for(int i = 0 ; i < arrayNum ; i++){
             g.drawImage(blockImg[i], blocks[i].x, blocks[i].y, null);
